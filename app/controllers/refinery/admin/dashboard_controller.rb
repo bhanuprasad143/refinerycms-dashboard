@@ -8,7 +8,9 @@ module Refinery
         ::Refinery::Plugins.active.each do |plugin|
           begin
             plugin.activity.each do |activity|
+              logger.info ">>>>>>>>>ACTIVITY KLASS NAME: #{activity.klass.name}"
               @recent_activity << activity.klass.where(activity.conditions).
+                                                 by_site(current_site).
                                                  order(activity.order).
                                                  limit(activity.limit)
             end
@@ -38,3 +40,4 @@ module Refinery
     end
   end
 end
+
